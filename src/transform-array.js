@@ -26,16 +26,39 @@ function transform(arr) {
       arr[i] !== "--discard-prev" ||
       arr[i] !== "--double-prev"
     )
+      return arr;
+
+    if (
+      arr[i - 1] === "--discard-next" ||
+      arr[i + 1] === "--discard-prev" ||
+      arr[0] === "--discard-prev" ||
+      arr[0] === "--double-prev"
+    )
       continue;
+
     switch (arr[i]) {
       case "--double-next":
-        transformedArr.push(arr[i + 1]);
-        transformedArr.push(arr[i + 1]);
+        if (typeof arr[i + 1] == "number") {
+          transformedArr.push(arr[i + 1]);
+          break;
+        }
+
+      case "--double-prev":
+        if (arr[0] === "--double-prev") break;
+        if (typeof arr[i - 1] == "number") {
+          transformedArr.push(arr[i - 1]);
+          break;
+        }
+      default:
         break;
-      // case "--discard-next":
-      //   arr[i+1].
+    }
+
+    if (typeof arr[i] == "number") {
+      transformedArr.push(arr[i]);
+      continue;
     }
   }
+  return transformedArr;
 }
 
 module.exports = {
