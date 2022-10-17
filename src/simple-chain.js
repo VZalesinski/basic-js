@@ -10,7 +10,8 @@ const chainMaker = {
     return this.chain.length;
   },
   addLink(value) {
-    if (typeof value === "number") this.chain.push(value);
+    value === null ? this.chain.push("null") : this.chain.push(value);
+
     return this;
     // throw new NotImplementedError("Not implemented");
     // remove line with error and write your code here
